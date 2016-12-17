@@ -1,4 +1,4 @@
-const GRID = {
+export const GRID = {
   empty: 0,
   bomb: 1,
 };
@@ -18,12 +18,12 @@ const initGrid = (width, height) => {
 export const initGameBoard = (width, height) => {
   let count = 0;
   let bombPositions = {};
-  let grid = initGrid();
+  let grid = initGrid(width, height);
   const bombCount = Math.round(width * height / 5);
 
   while (count < bombCount) {
-    const randomX = Math.random() * width;
-    const randomY = Math.random() * height;
+    const randomX = Math.floor(Math.random() * width);
+    const randomY = Math.floor(Math.random() * height);
     const location = `${randomX}x${randomY}`;
 
     if (bombPositions[location]) {
@@ -32,6 +32,7 @@ export const initGameBoard = (width, height) => {
 
     grid[randomY][randomX] = GRID.bomb;
     bombPositions[location] = true;
+    count++;
   }
 
   return grid;
