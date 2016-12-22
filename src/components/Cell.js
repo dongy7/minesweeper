@@ -5,12 +5,27 @@ const cellStyle = {
   borderRadius: '2px',
 };
 
-const UnRevealedCell = () => {
+const UnRevealedCell = ({ onLeftClick }) => {
+  const handleClick = (e) => {
+    switch (e.which) {
+      case '1':
+        onLeftClick();
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <td
       style={cellStyle}
+      onClick={handleClick}
     />
   );
+};
+
+UnRevealedCell.propTypes = {
+  onLeftClick: PropTypes.func.isRequired,
 };
 
 const EmptyCell = () => {
@@ -49,10 +64,10 @@ const BombCell = () => {
   );
 };
 
-const Cell = ({ isBomb, isRevealed, bombCount }) => {
+const Cell = ({ isBomb, isRevealed, bombCount, onLeftClick }) => {
   const cell = isRevealed ? (
     isBomb ? BombCell() : (bombCount === 0 ? EmptyCell() : CountCell({ count: bombCount}))
-  ) : UnRevealedCell();
+  ) : UnRevealedCell({ onLeftClick });
   return cell;
 };
 
@@ -60,6 +75,7 @@ Cell.propTypes = {
   isBomb: PropTypes.bool.isRequired,
   isRevealed: PropTypes.bool.isRequired,
   bombCount: PropTypes.number.isRequired,
+  onLeftClick: PropTypes.func.isRequired,
 };
 
 export default Cell;
