@@ -45,3 +45,6 @@ Cell.propTypes = {
   isBomb: PropTypes.bool.isRequired,
   bombCount: PropTypes.number.isRequired,
 };
+
+
+export default Cell;

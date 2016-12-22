@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { initGameBoard, getBombCountBoard, hashLocation } from '../game';
+import { initGameBoard, getBombCountBoard, hashLocation, GRID } from '../game';
 
 const board = (width, height, bombCount) => {
   const gameBoard = initGameBoard(width, height, bombCount);
@@ -37,4 +37,8 @@ export default board;
 
 export const hasBomb = (state, x, y) => {
   return state.board.bombPositions[hashLocation(x, y)];
+};
+
+export const isBomb = (cell) => {
+  return cell === GRID.bomb;
 };
