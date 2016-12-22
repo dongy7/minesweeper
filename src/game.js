@@ -3,6 +3,19 @@ export const GRID = {
   bomb: -1,
 };
 
+export const hashLocation = (x, y) => {
+  return `${x}x${y}`;
+};
+
+export const decodeHashedLocation = (hash) => {
+  const re = /([0-9]+)x([0-9]+)/;
+  const match = re.exec(hash);
+  return {
+    x: parseInt(match[1], 10),
+    y: parseInt(match[2], 10),
+  };
+};
+
 const initGrid = (width, height) => {
   let grid = new Array(height);
   for (let y = 0; y < height; y++) {
@@ -15,17 +28,33 @@ const initGrid = (width, height) => {
   return grid;
 };
 
-export const hashLocation = (x, y) => {
-  return `${x}x${y}`;
+export const initRevealGrid = (width, height) => {
+  let grid = new Array(height);
+  for (let y = 0; y < height; y++) {
+    grid[y] = new Array(width);
+    for (let x = 0; x < width; x++) {
+      grid[y][x] = false;
+    }
+  }
+
+  return grid;
 };
 
-export const decodeHashedLocation = (hash) => {
-  const re = /([0-9]+)x([0-9]+)/;
-  const match = re.exec(hash);
-  return {
-    x: parseInt(match[1], 10),
-    y: parseInt(match[2], 10),
-  };
+const cloneGrid = (grid) => {
+  const clone = new Array(grid.length);
+  for (let y = 0; y < grid.length; y++) {
+    clone[y] = grid[y].slice(0);
+  }
+};
+
+export const computeRevealGrid = (grid, locations) => {
+  const clone = cloneGrid(grid);
+  for (const hashedLocation of locations) {
+    const location = decodeHashedLocation(hashedLocation);
+    clone[location.y][location.x] = true;
+  }
+
+  return clone;
 };
 
 export const initGameBoard = (width, height, bombCount) => {

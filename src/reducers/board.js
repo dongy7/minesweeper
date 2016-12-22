@@ -1,9 +1,19 @@
 import { combineReducers } from 'redux';
-import { initGameBoard, getBombCountBoard, hashLocation, GRID } from '../game';
+import {
+  computeRevealGrid,
+  findLocationsToReveal,
+  initGameBoard,
+  initRevealGrid,
+  getBombCountBoard,
+  hashLocation,
+  GRID,
+} from '../game';
+import { CLICK_CELL } from '../actions';
 
 const createBoard = (width, height, bombCount) => {
   const gameBoard = initGameBoard(width, height, bombCount);
   const countBoard = getBombCountBoard(gameBoard.grid);
+  const revealGrid = initRevealGrid(width, height);
 
   const bombBoard = (state = gameBoard.grid, action) => {
     switch (action.type) {
@@ -26,10 +36,25 @@ const createBoard = (width, height, bombCount) => {
     }
   };
 
+  const revealBoard = (state = revealGrid, action) => {
+    let revealLocations;
+    switch (action.type) {
+      case CLICK_CELL:
+        revealLocations = findLocationsToReveal(
+          gameBoard.grid, gameBoard.bombPositions, countBoard,
+          action.x, action.y
+        );
+        return computeRevealGrid(state, revealLocations);
+      default:
+        return state;
+    }
+  };
+
   return combineReducers({
     bombBoard,
     bombPositions,
     bombCountBoard,
+    revealBoard,
   });
 };
 
