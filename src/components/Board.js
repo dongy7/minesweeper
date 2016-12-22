@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Cell from './Cell';
 import { isBomb } from '../reducers/board';
 
-const Row = ({ boardRow, rowID, countBoard, shouldReveal, onLeftClick }) => {
+const Row = ({ boardRow, rowID, countBoard, shouldReveal, shouldFlag, onLeftClick, onRightClick }) => {
   return (
     <tr>
       {boardRow.map((cell, id) => {
@@ -10,8 +10,10 @@ const Row = ({ boardRow, rowID, countBoard, shouldReveal, onLeftClick }) => {
           <Cell
             isBomb={isBomb(cell)}
             isRevealed={shouldReveal(id, rowID)}
+            isFlagged={shouldFlag(id, rowID)}
             bombCount={countBoard[rowID][id]}
             onLeftClick={() => onLeftClick(id, rowID)}
+            onRightClick={() => onRightClick(id, rowID)}
             key={id}
           />
         );
@@ -27,10 +29,12 @@ Row.propTypes = {
     PropTypes.arrayOf(PropTypes.number)
   ).isRequired,
   shouldReveal: PropTypes.func.isRequired,
+  shouldFlag: PropTypes.func.isRequired,
   onLeftClick: PropTypes.func.isRequired,
+  onRightClick: PropTypes.func.isRequired,
 };
 
-const Board = ({ bombBoard, countBoard, shouldReveal, onLeftClick }) => {
+const Board = ({ bombBoard, countBoard, shouldReveal, shouldFlag, onLeftClick, onRightClick }) => {
   return (
     <table>
       <tbody>
@@ -41,7 +45,9 @@ const Board = ({ bombBoard, countBoard, shouldReveal, onLeftClick }) => {
               rowID={id}
               countBoard={countBoard}
               shouldReveal={shouldReveal}
+              shouldFlag={shouldFlag}
               onLeftClick={onLeftClick}
+              onRightClick={onRightClick}
               key={id}
             />
           );
@@ -59,7 +65,9 @@ Board.propTypes = {
     PropTypes.arrayOf(PropTypes.number)
   ).isRequired,
   shouldReveal: PropTypes.func.isRequired,
+  shouldFlag: PropTypes.func.isRequired,
   onLeftClick: PropTypes.func.isRequired,
+  onRightClick: PropTypes.func.isRequired,
 };
 
 export default Board;

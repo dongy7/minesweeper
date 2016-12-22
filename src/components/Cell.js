@@ -6,10 +6,11 @@ const cellStyle = {
   borderRadius: '2px',
 };
 
-const UnRevealedCell = ({ onLeftClick }) => {
+const UnRevealedCell = ({ onLeftClick, onRightClick }) => {
   const unrevealedStyle = Object.assign({}, cellStyle, {
     background: '#dddddd',
   });
+
   const handleClick = (e) => {
     console.log(e.nativeEvent.which);
     switch (e.nativeEvent.which) {
@@ -21,10 +22,16 @@ const UnRevealedCell = ({ onLeftClick }) => {
     }
   };
 
+  const handleRightClick  = (e) => {
+    e.preventDefault();
+    onRightClick();
+  };
+
   return (
     <td
       style={unrevealedStyle}
       onClick={handleClick}
+      onContextMenu={handleRightClick}
     >
       <div className="content" />
     </td>
@@ -83,18 +90,21 @@ const FlaggedCell = () => {
   );
 };
 
-const Cell = ({ isBomb, isRevealed, bombCount, onLeftClick }) => {
-  const cell = isRevealed ? (
-    isBomb ? BombCell() : (bombCount === 0 ? EmptyCell() : CountCell({ count: bombCount}))
-  ) : UnRevealedCell({ onLeftClick });
+const Cell = ({ isBomb, isRevealed, isFlagged, bombCount, onLeftClick, onRightClick }) => {
+  const cell = isFlagged ? FlaggedCell({ onRightClick }) : (
+    isRevealed ? (isBomb ? BombCell() : (
+      bombCount === 0 ? EmptyCell() : CountCell({ count: bombCount}))
+    ) : UnRevealedCell({ onLeftClick, onRightClick }));
   return cell;
 };
 
 Cell.propTypes = {
   isBomb: PropTypes.bool.isRequired,
   isRevealed: PropTypes.bool.isRequired,
+  isFlagged: PropTypes.bool.isRequired,
   bombCount: PropTypes.number.isRequired,
   onLeftClick: PropTypes.func.isRequired,
+  onRightClick: PropTypes.func.isRequired,
 };
 
 export default Cell;
