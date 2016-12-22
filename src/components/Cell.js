@@ -90,7 +90,10 @@ const FlaggedCell = () => {
   );
 };
 
-const Cell = ({ isBomb, isRevealed, isFlagged, bombCount, onLeftClick, onRightClick }) => {
+const Cell = ({
+  isBomb, isRevealed, isFlagged,
+  bombCount,
+  onLeftClick, onRightClick }) => {
   const cell = isFlagged ? FlaggedCell({ onRightClick }) : (
     isRevealed ? (isBomb ? BombCell() : (
       bombCount === 0 ? EmptyCell() : CountCell({ count: bombCount}))

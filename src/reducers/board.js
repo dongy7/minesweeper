@@ -74,7 +74,7 @@ const createBoard = (width, height, bombCount) => {
 export default createBoard;
 
 export const hasBomb = (state, x, y) => {
-  return state.board.bombPositions[hashLocation(x, y)];
+  return state.board.bombPositions[hashLocation(x, y)] || false;
 };
 
 export const isBomb = (cell) => {
@@ -87,8 +87,11 @@ export const getBombBoard = (state) =>
 export const getCountBoard = (state) =>
   state.board.bombCountBoard;
 
-export const shouldReveal = (state) => (x, y) =>
+export const shouldReveal = (state, x, y) =>
   state.board.metadata.revealGrid[y][x];
 
-export const shouldFlag = (state) => (x, y) =>
+export const shouldFlag = (state, x, y) =>
   state.board.metadata.flagGrid[y][x];
+
+export const getBombCount = (state, x, y) =>
+  state.board.bombCountBoard[y][x];
