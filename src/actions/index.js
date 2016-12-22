@@ -1,5 +1,6 @@
 export const CLICK_CELL = 'CLICK_CELL';
 export const FLAG_CELL = 'FLAG_CELL';
+export const RESET = 'RESET';
 
 let clickCount = 0;
 
@@ -17,5 +18,11 @@ export const flagCell = (x, y) => {
     type: FLAG_CELL,
     x,
     y,
+  };
+};
+
+export const reset = () => {
+  return {
+    type: RESET,
   };
 };
