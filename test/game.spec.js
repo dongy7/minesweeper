@@ -58,17 +58,35 @@ test('revealing logic works', () => {
     [ 0, -1,  -1, 0, 0],  // 2
   ];
 
+  const bombPositions = {
+    '0x0': true,
+    '0x2': true,
+    '1x1': true,
+    '2x1': true,
+    '2x2': true,
+  };
+
   const bombCountGrid = getBombCountBoard(grid);
   let locations;
   let x = 0;
   let y = 1;
-  locations = findLocationsToReveal(grid, bombCountGrid, x, y);
+  locations = findLocationsToReveal(grid, bombPositions, bombCountGrid, x, y);
   expect(Object.keys(locations).length).toBe(1);
 
   x = 4;
   y = 0;
-  locations = findLocationsToReveal(grid, bombCountGrid, x, y);
+  locations = findLocationsToReveal(grid, bombPositions, bombCountGrid, x, y);
   expect(Object.keys(locations).length).toBe(6);
+
+  // should return all bomb locations if cell with bomb is clicked
+  x = 0;
+  y = 0;
+  locations = findLocationsToReveal(grid, bombPositions, bombCountGrid, x, y);
+  expect(Object.keys(locations).length).toBe(5);
+
+  for (const key of Object.keys(bombPositions)) {
+    expect(locations[key]).toBe(true);
+  }
 });
 
 test('hash decoding works', () => {

@@ -122,7 +122,11 @@ export const testLocation = (grid, countGrid, x, y, cache, toReveal) => {
   }
 };
 
-export const findLocationsToReveal = (grid, countGrid, x, y) => {
+export const findLocationsToReveal = (grid, bombPositions, countGrid, x, y) => {
+  if (grid[y][x] === GRID.bomb) {
+    return bombPositions;
+  }
+
   const cache = {};
   const toReveal = {};
   testLocation(grid, countGrid, x, y, cache, toReveal);
