@@ -19,11 +19,10 @@ export const hashLocation = (x, y) => {
   return `${x}x${y}`;
 };
 
-export const initGameBoard = (width, height) => {
+export const initGameBoard = (width, height, bombCount) => {
   let count = 0;
   let bombPositions = {};
   let grid = initGrid(width, height);
-  const bombCount = Math.round(width * height / 5);
 
   while (count < bombCount) {
     const randomX = Math.floor(Math.random() * width);

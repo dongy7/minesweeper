@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { initGameBoard, getBombCountBoard, hashLocation } from '../game';
 
-const board = (width, height) => {
-  const gameBoard = initGameBoard(width, height);
+const board = (width, height, bombCount) => {
+  const gameBoard = initGameBoard(width, height, bombCount);
   const countBoard = getBombCountBoard(gameBoard.grid);
 
   const bombBoard = (state = gameBoard.grid, action) => {

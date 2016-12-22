@@ -8,7 +8,8 @@ import {
 test('grid initialized with correct dimensions', () => {
   const width = 10;
   const height = 5;
-  const grid = initGameBoard(width, height).grid;
+  const bombs = 5;
+  const grid = initGameBoard(width, height, bombs).grid;
   expect(grid.length).toBe(height);
   expect(grid[0].length).toBe(width);
 })
@@ -16,8 +17,8 @@ test('grid initialized with correct dimensions', () => {
 test('correct number of bombs placed', () => {
   const width = 10;
   const height = 5;
-  const grid = initGameBoard(width, height).grid;
-  const bombCount = width * height / 5;
+  const bombs = 5;
+  const grid = initGameBoard(width, height, bombs).grid;
   let count = 0;
   for (let y = 0; y < grid.length; y++) {
     for (let x = 0; x < grid[y].length; x++) {
@@ -25,7 +26,7 @@ test('correct number of bombs placed', () => {
     }
   }
 
-  expect(count).toBe(bombCount * GRID.bomb);
+  expect(count).toBe(bombs * GRID.bomb);
 });
 
 test('bomb count grid reflects actual bomb locations', () => {
