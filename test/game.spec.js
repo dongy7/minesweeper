@@ -7,6 +7,7 @@ import {
   cloneGrid,
   initRevealGrid,
   computeRevealGrid,
+  toggleLocation,
 } from '../src/game';
 
 test('grid initialized with correct dimensions', () => {
@@ -145,4 +146,15 @@ test('reveal grid reflects new revealed locations', () => {
   expect(revealGrid[0][0]).toBe(false);
   expect(revealGrid[1][1]).toBe(false);
   expect(revealGrid[2][2]).toBe(false);
+});
+
+test('toggling a grid location works', () => {
+  const flagGrid = initRevealGrid(3, 3);
+  let toggledGrid = toggleLocation(flagGrid, 0, 0);
+  expect(toggledGrid[0][0]).toBe(true);
+  expect(flagGrid[0][0]).toBe(false);
+
+  toggledGrid = toggleLocation(toggledGrid, 0, 0);
+  expect(toggledGrid[0][0]).toBe(false);
+  expect(flagGrid[0][0]).toBe(false);
 });

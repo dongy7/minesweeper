@@ -5,8 +5,9 @@ import {
   initGameBoard,
   hashLocation,
   GRID,
+  toggleLocation,
 } from '../game';
-import { CLICK_CELL } from '../actions';
+import { CLICK_CELL, FLAG_CELL } from '../actions';
 
 const createBoard = (width, height, bombCount) => {
   const gameBoard = initGameBoard(width, height, bombCount);
@@ -49,6 +50,14 @@ const createBoard = (width, height, bombCount) => {
         return Object.assign({}, state, {
           revealGrid: computeRevealGrid(state.revealGrid, revealLocations),
         });
+      case FLAG_CELL:
+        if (state.revealGrid[action.y][action.x]) {
+          break;
+        }
+
+        return Object.assign({}, state, {
+          flagGrid: toggleLocation(state.flagGrid, action.x, action.y),
+        });
       default:
         return state;
     }
@@ -80,3 +89,6 @@ export const getCountBoard = (state) =>
 
 export const shouldReveal = (state) => (x, y) =>
   state.board.metadata.revealGrid[y][x];
+
+export const shouldFlag = (state) => (x, y) =>
+  state.board.metadata.flagGrid[y][x];

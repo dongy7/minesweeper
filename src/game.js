@@ -167,3 +167,10 @@ export const findLocationsToReveal = (grid, bombPositions, countGrid, x, y) => {
 
   return toReveal;
 };
+
+export const toggleLocation = (grid, x, y) => {
+  const clone = cloneGrid(grid);
+  clone[y][x] = !clone[y][x];
+
+  return clone;
+};
