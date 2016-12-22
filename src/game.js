@@ -15,7 +15,7 @@ const initGrid = (width, height) => {
   return grid;
 };
 
-const hashLocation = (x, y) => {
+export const hashLocation = (x, y) => {
   return `${x}x${y}`;
 };
 
