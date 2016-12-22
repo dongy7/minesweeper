@@ -1,10 +1,10 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { grey400 } from 'material-ui/styles/colors';
 import GameBoard from './GameBoard';
+import Navigation from './Navigation';
 
 injectTapEventPlugin();
 
@@ -17,7 +17,7 @@ const muiTheme = getMuiTheme({
 const Game = () => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <div>
-      <AppBar title="Minesweeper" />
+      <Navigation />
       <GameBoard />
     </div>
   </MuiThemeProvider>
