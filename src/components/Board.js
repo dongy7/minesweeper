@@ -27,8 +27,13 @@ Row.propTypes = {
 };
 
 const Board = ({ bombBoard, countBoard }) => {
+  const tableStyle = {
+    width: '400px',
+    height: '400px',
+  };
+
   return (
-    <table>
+    <table style={tableStyle}>
       <tbody>
         {bombBoard.map((row, id) => {
           return (
