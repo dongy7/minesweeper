@@ -7,6 +7,9 @@ const cellStyle = {
 };
 
 const UnRevealedCell = ({ onLeftClick }) => {
+  const unrevealedStyle = Object.assign({}, cellStyle, {
+    background: '#dddddd',
+  });
   const handleClick = (e) => {
     console.log(e.nativeEvent.which);
     switch (e.nativeEvent.which) {
@@ -20,9 +23,11 @@ const UnRevealedCell = ({ onLeftClick }) => {
 
   return (
     <td
-      style={cellStyle}
+      style={unrevealedStyle}
       onClick={handleClick}
-    />
+    >
+      <div className="content" />
+    </td>
   );
 };
 
@@ -36,18 +41,20 @@ const EmptyCell = () => {
   });
 
   return (
-    <td
-      style={emptyStyle}
-    />
+    <td style={emptyStyle}>
+      <div className="content" />
+    </td>
   );
 };
 
 const CountCell = ({ count }) => {
   return (
     <td style={cellStyle}>
-      <NumberIcon
-        number={count}
-      />
+      <div className="content">
+        <NumberIcon
+          number={count}
+        />
+      </div>
     </td>
   );
 };
@@ -59,7 +66,9 @@ CountCell.propTypes = {
 const BombCell = () => {
   return (
     <td style={cellStyle}>
-      <BombIcon />
+      <div className="content">
+        <BombIcon />
+      </div>
     </td>
   );
 };
