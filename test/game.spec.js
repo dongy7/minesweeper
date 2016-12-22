@@ -3,6 +3,7 @@ import {
   getBombCountBoard,
   GRID,
   findLocationsToReveal,
+  decodeHashedLocation,
 } from '../src/game';
 
 test('grid initialized with correct dimensions', () => {
@@ -68,4 +69,13 @@ test('revealing logic works', () => {
   y = 0;
   locations = findLocationsToReveal(grid, bombCountGrid, x, y);
   expect(Object.keys(locations).length).toBe(6);
+});
+
+test('hash decoding works', () => {
+  const x = 15;
+  const y = 20;
+  const hash = `${x}x${y}`;
+  const location = decodeHashedLocation(hash);
+  expect(location.x).toBe(x);
+  expect(location.y).toBe(y);
 });

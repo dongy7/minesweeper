@@ -19,6 +19,15 @@ export const hashLocation = (x, y) => {
   return `${x}x${y}`;
 };
 
+export const decodeHashedLocation = (hash) => {
+  const re = /([0-9]+)x([0-9]+)/;
+  const match = re.exec(hash);
+  return {
+    x: parseInt(match[1], 10),
+    y: parseInt(match[2], 10),
+  };
+};
+
 export const initGameBoard = (width, height, bombCount) => {
   let count = 0;
   let bombPositions = {};
