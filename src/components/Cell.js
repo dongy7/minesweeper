@@ -5,6 +5,14 @@ const cellStyle = {
   borderRadius: '2px',
 };
 
+const UnRevealedCell = () => {
+  return (
+    <td
+      style={cellStyle}
+    />
+  );
+};
+
 const EmptyCell = () => {
   const emptyStyle = Object.assign({}, cellStyle, {
     background: '#7da3c9',
@@ -41,16 +49,17 @@ const BombCell = () => {
   );
 };
 
-const Cell = ({ isBomb, bombCount }) => {
-  const cell = isBomb ? BombCell() :
-    (bombCount === 0 ? EmptyCell() : CountCell({ count: bombCount}));
+const Cell = ({ isBomb, isRevealed, bombCount }) => {
+  const cell = isRevealed ? (
+    isBomb ? BombCell() : (bombCount === 0 ? EmptyCell() : CountCell({ count: bombCount}))
+  ) : UnRevealedCell();
   return cell;
 };
 
 Cell.propTypes = {
   isBomb: PropTypes.bool.isRequired,
+  isRevealed: PropTypes.bool.isRequired,
   bombCount: PropTypes.number.isRequired,
 };
-
 
 export default Cell;

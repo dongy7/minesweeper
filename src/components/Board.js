@@ -2,13 +2,14 @@ import React, { PropTypes } from 'react';
 import Cell from './Cell';
 import { isBomb } from '../reducers/board';
 
-const Row = ({ boardRow, rowID, countBoard }) => {
+const Row = ({ boardRow, rowID, countBoard, shouldReveal }) => {
   return (
     <tr>
       {boardRow.map((cell, id) => {
         return (
           <Cell
             isBomb={isBomb(cell)}
+            isRevealed={shouldReveal(id, rowID)}
             bombCount={countBoard[rowID][id]}
             key={id}
           />
@@ -24,9 +25,10 @@ Row.propTypes = {
   countBoard: PropTypes.arrayOf(
     PropTypes.arrayOf(PropTypes.number)
   ).isRequired,
+  shouldReveal: PropTypes.func.isRequired,
 };
 
-const Board = ({ bombBoard, countBoard }) => {
+const Board = ({ bombBoard, countBoard, shouldReveal }) => {
   const tableStyle = {
     width: '400px',
     height: '400px',
@@ -41,6 +43,7 @@ const Board = ({ bombBoard, countBoard }) => {
               boardRow={row}
               rowID={id}
               countBoard={countBoard}
+              shouldReveal={shouldReveal}
               key={id}
             />
           );
@@ -57,6 +60,7 @@ Board.propTypes = {
   countBoard: PropTypes.arrayOf(
     PropTypes.arrayOf(PropTypes.number)
   ).isRequired,
+  shouldReveal: PropTypes.func.isRequired,
 };
 
 export default Board;

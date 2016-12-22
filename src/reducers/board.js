@@ -73,3 +73,6 @@ export const getBombBoard = (state) =>
 
 export const getCountBoard = (state) =>
   state.board.bombCountBoard;
+
+export const shouldReveal = (state) => (x, y) =>
+  state.board.revealBoard[y][x];
