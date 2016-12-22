@@ -1,9 +1,14 @@
-import { initGameBoard } from '../src/game';
+import {
+  initGameBoard,
+  getBombCountBoard,
+  GRID,
+  findLocationsToReveal,
+} from '../src/game';
 
 test('grid initialized with correct dimensions', () => {
   const width = 10;
   const height = 5;
-  const grid = initGameBoard(width, height);
+  const grid = initGameBoard(width, height).grid;
   expect(grid.length).toBe(height);
   expect(grid[0].length).toBe(width);
 })
@@ -11,7 +16,7 @@ test('grid initialized with correct dimensions', () => {
 test('correct number of bombs placed', () => {
   const width = 10;
   const height = 5;
-  const grid = initGameBoard(width, height);
+  const grid = initGameBoard(width, height).grid;
   const bombCount = width * height / 5;
   let count = 0;
   for (let y = 0; y < grid.length; y++) {
@@ -20,5 +25,46 @@ test('correct number of bombs placed', () => {
     }
   }
 
-  expect(count).toBe(bombCount);
+  expect(count).toBe(bombCount * GRID.bomb);
+});
+
+test('bomb count grid reflects actual bomb locations', () => {
+  const grid = [
+  //  0   1    2
+    [-1,  0,  -1],  // 0
+    [ 0, -1,   0],  // 1
+    [ 0, -1,  -1],  // 2
+  ];
+
+  const bombCountGrid = getBombCountBoard(grid);
+  expect(bombCountGrid[0][0]).toBe(GRID.bomb);
+  expect(bombCountGrid[0][1]).toBe(3);
+  expect(bombCountGrid[0][2]).toBe(GRID.bomb);
+  expect(bombCountGrid[1][0]).toBe(3);
+  expect(bombCountGrid[1][1]).toBe(GRID.bomb);
+  expect(bombCountGrid[1][2]).toBe(4);
+  expect(bombCountGrid[2][0]).toBe(2);
+  expect(bombCountGrid[2][1]).toBe(GRID.bomb);
+  expect(bombCountGrid[2][2]).toBe(GRID.bomb);
+});
+
+test('revealing logic works', () => {
+  const grid = [
+  //  0   1    2  3  4
+    [-1,  0,  -1, 0, 0],  // 0
+    [ 0, -1,   0, 0, 0],  // 1
+    [ 0, -1,  -1, 0, 0],  // 2
+  ];
+
+  const bombCountGrid = getBombCountBoard(grid);
+  let locations;
+  let x = 0;
+  let y = 1;
+  locations = findLocationsToReveal(grid, bombCountGrid, x, y);
+  expect(Object.keys(locations).length).toBe(1);
+
+  x = 4;
+  y = 0;
+  locations = findLocationsToReveal(grid, bombCountGrid, x, y);
+  expect(Object.keys(locations).length).toBe(6);
 });
