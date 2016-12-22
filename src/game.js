@@ -59,31 +59,6 @@ export const computeRevealGrid = (grid, locations) => {
   return clone;
 };
 
-export const initGameBoard = (width, height, bombCount) => {
-  let count = 0;
-  let bombPositions = {};
-  let grid = initGrid(width, height);
-
-  while (count < bombCount) {
-    const randomX = Math.floor(Math.random() * width);
-    const randomY = Math.floor(Math.random() * height);
-    const location = hashLocation(randomX, randomY);
-
-    if (bombPositions[location]) {
-      continue;
-    }
-
-    grid[randomY][randomX] = GRID.bomb;
-    bombPositions[location] = true;
-    count++;
-  }
-
-  return {
-    grid,
-    bombPositions,
-  };
-};
-
 const getNeighborLocations = (grid, x, y) => {
   const locations = [];
   for (let j = y - 1; j <= y + 1; j++) {
@@ -129,6 +104,34 @@ export const getBombCountBoard = (grid) => {
   }
 
   return countGrid;
+};
+
+export const initGameBoard = (width, height, bombCount) => {
+  let count = 0;
+  let bombPositions = {};
+  let grid = initGrid(width, height);
+
+  while (count < bombCount) {
+    const randomX = Math.floor(Math.random() * width);
+    const randomY = Math.floor(Math.random() * height);
+    const location = hashLocation(randomX, randomY);
+
+    if (bombPositions[location]) {
+      continue;
+    }
+
+    grid[randomY][randomX] = GRID.bomb;
+    bombPositions[location] = true;
+    count++;
+  }
+
+  return {
+    grid,
+    bombPositions,
+    revealGrid: initRevealGrid(width, height),
+    flagGrid: initRevealGrid(width, height),
+    countGrid: getBombCountBoard(grid),
+  };
 };
 
 export const testLocation = (grid, countGrid, x, y, cache, toReveal) => {

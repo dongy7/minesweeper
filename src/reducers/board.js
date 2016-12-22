@@ -3,8 +3,6 @@ import {
   computeRevealGrid,
   findLocationsToReveal,
   initGameBoard,
-  initRevealGrid,
-  getBombCountBoard,
   hashLocation,
   GRID,
 } from '../game';
@@ -12,8 +10,9 @@ import { CLICK_CELL } from '../actions';
 
 const createBoard = (width, height, bombCount) => {
   const gameBoard = initGameBoard(width, height, bombCount);
-  const countBoard = getBombCountBoard(gameBoard.grid);
-  const revealGrid = initRevealGrid(width, height);
+  const countBoard = gameBoard.countGrid;
+  const revealGrid = gameBoard.revealGrid;
+  const flagGrid = gameBoard.flagGrid;
 
   const bombBoard = (state = gameBoard.grid, action) => {
     switch (action.type) {
@@ -36,7 +35,10 @@ const createBoard = (width, height, bombCount) => {
     }
   };
 
-  const revealBoard = (state = revealGrid, action) => {
+  const metadata = (state = {
+    revealGrid,
+    flagGrid,
+  }, action) => {
     let revealLocations;
     switch (action.type) {
       case CLICK_CELL:
@@ -44,7 +46,9 @@ const createBoard = (width, height, bombCount) => {
           gameBoard.grid, gameBoard.bombPositions, countBoard,
           action.x, action.y
         );
-        return computeRevealGrid(state, revealLocations);
+        return Object.assign({}, state, {
+          revealGrid: computeRevealGrid(state.revealGrid, revealLocations),
+        });
       default:
         return state;
     }
@@ -54,7 +58,7 @@ const createBoard = (width, height, bombCount) => {
     bombBoard,
     bombPositions,
     bombCountBoard,
-    revealBoard,
+    metadata,
   });
 };
 
@@ -75,4 +79,4 @@ export const getCountBoard = (state) =>
   state.board.bombCountBoard;
 
 export const shouldReveal = (state) => (x, y) =>
-  state.board.revealBoard[y][x];
+  state.board.metadata.revealGrid[y][x];
