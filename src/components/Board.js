@@ -29,16 +29,18 @@ Row.propTypes = {
 const Board = ({ bombBoard, countBoard }) => {
   return (
     <table>
-      {bombBoard.map((row, id) => {
-        return (
-          <Row
-            boardRow={row}
-            rowID={id}
-            countBoard={countBoard}
-            key={id}
-          />
-        );
-      })}
+      <tbody>
+        {bombBoard.map((row, id) => {
+          return (
+            <Row
+              boardRow={row}
+              rowID={id}
+              countBoard={countBoard}
+              key={id}
+            />
+          );
+        })}
+      </tbody>
     </table>
   );
 };

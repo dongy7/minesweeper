@@ -42,3 +42,9 @@ export const hasBomb = (state, x, y) => {
 export const isBomb = (cell) => {
   return cell === GRID.bomb;
 };
+
+export const getBombBoard = (state) =>
+  state.bombBoard;
+
+export const getCountBoard = (state) =>
+  state.bombCountBoard;
