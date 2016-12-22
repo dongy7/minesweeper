@@ -80,14 +80,26 @@ const BombCell = () => {
   );
 };
 
-const FlaggedCell = () => {
+const FlaggedCell = ({ onRightClick }) => {
+  const handleRightClick  = (e) => {
+    e.preventDefault();
+    onRightClick();
+  };
+
   return (
-    <td style={cellStyle}>
+    <td
+      style={cellStyle}
+      onContextMenu={handleRightClick}
+    >
       <div className="content">
         <FlagIcon />
       </div>
     </td>
   );
+};
+
+FlaggedCell.propTypes = {
+  onRightClick: PropTypes.func.isRequired,
 };
 
 const Cell = ({
