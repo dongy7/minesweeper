@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Cell from './Cell';
 import { isBomb } from '../reducers/board';
 
-const Row = ({ boardRow, rowID, countBoard, shouldReveal }) => {
+const Row = ({ boardRow, rowID, countBoard, shouldReveal, onLeftClick }) => {
   return (
     <tr>
       {boardRow.map((cell, id) => {
@@ -11,6 +11,7 @@ const Row = ({ boardRow, rowID, countBoard, shouldReveal }) => {
             isBomb={isBomb(cell)}
             isRevealed={shouldReveal(id, rowID)}
             bombCount={countBoard[rowID][id]}
+            onLeftClick={() => onLeftClick(id, rowID)}
             key={id}
           />
         );
@@ -26,9 +27,10 @@ Row.propTypes = {
     PropTypes.arrayOf(PropTypes.number)
   ).isRequired,
   shouldReveal: PropTypes.func.isRequired,
+  onLeftClick: PropTypes.func.isRequired,
 };
 
-const Board = ({ bombBoard, countBoard, shouldReveal }) => {
+const Board = ({ bombBoard, countBoard, shouldReveal, onLeftClick }) => {
   const tableStyle = {
     width: '400px',
     height: '400px',
@@ -44,6 +46,7 @@ const Board = ({ bombBoard, countBoard, shouldReveal }) => {
               rowID={id}
               countBoard={countBoard}
               shouldReveal={shouldReveal}
+              onLeftClick={onLeftClick}
               key={id}
             />
           );
@@ -61,6 +64,7 @@ Board.propTypes = {
     PropTypes.arrayOf(PropTypes.number)
   ).isRequired,
   shouldReveal: PropTypes.func.isRequired,
+  onLeftClick: PropTypes.func.isRequired,
 };
 
 export default Board;

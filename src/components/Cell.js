@@ -7,8 +7,9 @@ const cellStyle = {
 
 const UnRevealedCell = ({ onLeftClick }) => {
   const handleClick = (e) => {
-    switch (e.which) {
-      case '1':
+    console.log(e.nativeEvent.which);
+    switch (e.nativeEvent.which) {
+      case 1:
         onLeftClick();
         break;
       default:
