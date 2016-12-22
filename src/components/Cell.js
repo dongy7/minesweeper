@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { BombIcon, NumberIcon } from './Icon';
 
 const cellStyle = {
   border: '1px solid #a2a2a2',
@@ -44,7 +45,9 @@ const EmptyCell = () => {
 const CountCell = ({ count }) => {
   return (
     <td style={cellStyle}>
-      {count}
+      <NumberIcon
+        number={count}
+      />
     </td>
   );
 };
@@ -54,14 +57,10 @@ CountCell.propTypes = {
 };
 
 const BombCell = () => {
-  const bombStyle = Object.assign({}, cellStyle, {
-    background: '#FF6666',
-  });
-
   return (
-    <td
-      style={bombStyle}
-    />
+    <td style={cellStyle}>
+      <BombIcon />
+    </td>
   );
 };
 

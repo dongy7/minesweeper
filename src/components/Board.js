@@ -31,13 +31,8 @@ Row.propTypes = {
 };
 
 const Board = ({ bombBoard, countBoard, shouldReveal, onLeftClick }) => {
-  const tableStyle = {
-    width: '400px',
-    height: '400px',
-  };
-
   return (
-    <table style={tableStyle}>
+    <table>
       <tbody>
         {bombBoard.map((row, id) => {
           return (
