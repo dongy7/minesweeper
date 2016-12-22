@@ -40,16 +40,18 @@ export const initRevealGrid = (width, height) => {
   return grid;
 };
 
-const cloneGrid = (grid) => {
+export const cloneGrid = (grid) => {
   const clone = new Array(grid.length);
   for (let y = 0; y < grid.length; y++) {
     clone[y] = grid[y].slice(0);
   }
+
+  return clone;
 };
 
 export const computeRevealGrid = (grid, locations) => {
   const clone = cloneGrid(grid);
-  for (const hashedLocation of locations) {
+  for (const hashedLocation of Object.keys(locations)) {
     const location = decodeHashedLocation(hashedLocation);
     clone[location.y][location.x] = true;
   }

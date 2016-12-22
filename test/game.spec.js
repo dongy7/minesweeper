@@ -4,6 +4,9 @@ import {
   GRID,
   findLocationsToReveal,
   decodeHashedLocation,
+  cloneGrid,
+  initRevealGrid,
+  computeRevealGrid,
 } from '../src/game';
 
 test('grid initialized with correct dimensions', () => {
@@ -96,4 +99,50 @@ test('hash decoding works', () => {
   const location = decodeHashedLocation(hash);
   expect(location.x).toBe(x);
   expect(location.y).toBe(y);
+});
+
+test('cloning grid works', () => {
+  const grid = [
+  //  0   1    2
+    [-1,  0,  -1],  // 0
+    [ 0, -1,   0],  // 1
+    [ 0, -1,  -1],  // 2
+  ];
+
+  const clone = cloneGrid(grid);
+  expect(clone).toEqual(grid);
+
+  grid[0][0] = 0;
+  expect(grid[0][0]).toBe(0);
+  expect(clone[0][0]).toBe(-1);
+});
+
+test('reveal grid initialization works', () => {
+  const revealGrid = initRevealGrid(3, 3);
+
+  expect(revealGrid).toEqual(
+    [
+      [false, false, false],
+      [false, false, false],
+      [false, false, false],
+    ]
+  );
+});
+
+test('reveal grid reflects new revealed locations', () => {
+  const locationsToReveal = {
+    '0x0': true,
+    '1x1': true,
+    '2x2': true,
+  };
+
+  const revealGrid = initRevealGrid(3, 3);
+  const newRevealGrid = computeRevealGrid(revealGrid, locationsToReveal);
+
+  expect(newRevealGrid[0][0]).toBe(true);
+  expect(newRevealGrid[1][1]).toBe(true);
+  expect(newRevealGrid[2][2]).toBe(true);
+  expect(revealGrid[0][0]).toBe(false);
+  expect(revealGrid[1][1]).toBe(false);
+  expect(revealGrid[2][2]).toBe(false);
 });
