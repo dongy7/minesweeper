@@ -20,3 +20,9 @@ export const NumberIcon = ({ number }) => {
 NumberIcon.propTypes = {
   number: PropTypes.number.isRequired,
 };
+
+export const FlagIcon = () => {
+  return (
+    <i className="fa fa-flag fa-lg"/>
+  );
+};

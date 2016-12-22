@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { BombIcon, NumberIcon } from './Icon';
+import { BombIcon, NumberIcon, FlagIcon } from './Icon';
 
 const cellStyle = {
   border: '1px solid #a2a2a2',
@@ -68,6 +68,16 @@ const BombCell = () => {
     <td style={cellStyle}>
       <div className="content">
         <BombIcon />
+      </div>
+    </td>
+  );
+};
+
+const FlaggedCell = () => {
+  return (
+    <td style={cellStyle}>
+      <div className="content">
+        <FlagIcon />
       </div>
     </td>
   );
