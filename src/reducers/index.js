@@ -4,7 +4,7 @@ import { RESET } from '../actions';
 
 const getGameReducer = () => {
   return combineReducers({
-    board: createBoard(16, 16, 40),
+    board: createBoard(8, 8, 10),
   })
 };
 
