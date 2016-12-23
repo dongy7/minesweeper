@@ -9,6 +9,7 @@ import {
   computeRevealGrid,
   toggleLocation,
   isGoalState,
+  isBombLocation,
 } from '../src/game';
 
 test('grid initialized with correct dimensions', () => {
@@ -182,4 +183,16 @@ test('Goal detection works', () => {
   ];
 
   expect(isGoalState(revealGrid, grid)).toBe(true);
+});
+
+test('Bomb detection works', () => {
+  const grid = [
+  //  0   1    2
+    [-1,  0,  -1],  // 0
+    [ 0, -1,   0],  // 1
+    [ 0, -1,  -1],  // 2
+  ];
+
+  expect(isBombLocation(grid, 0, 0)).toBe(true);
+  expect(isBombLocation(grid, 0, 1)).toBe(false);
 });

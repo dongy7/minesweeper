@@ -6,23 +6,33 @@ import {
   hashLocation,
   GRID,
   toggleLocation,
+  isBombLocation,
+  isGoalState,
 } from '../game';
 import { CLICK_CELL, FLAG_CELL } from '../actions';
 
+const gameState = {
+  onGoing: 0,
+  lost: 1,
+  won: 2,
+};
+
 const createBoard = (width, height, bombCount) => {
   const gameBoard = initGameBoard(width, height, bombCount);
+  const bombGrid = gameBoard.grid;
+  const bombLocations = gameBoard.bombPositions;
   const countBoard = gameBoard.countGrid;
   const revealGrid = gameBoard.revealGrid;
   const flagGrid = gameBoard.flagGrid;
 
-  const bombBoard = (state = gameBoard.grid, action) => {
+  const bombBoard = (state = bombGrid, action) => {
     switch (action.type) {
       default:
         return state;
     }
   };
 
-  const bombPositions = (state = gameBoard.bombPositions, action) => {
+  const bombPositions = (state = bombLocations, action) => {
     switch (action.type) {
       default:
         return state;
@@ -40,17 +50,30 @@ const createBoard = (width, height, bombCount) => {
     revealGrid,
     flagGrid,
     bombsLeft: bombCount,
+    gameState: gameState.onGoing,
   }, action) => {
     let revealLocations;
     let count;
+    let newGameState;
+
     switch (action.type) {
       case CLICK_CELL:
         revealLocations = findLocationsToReveal(
           gameBoard.grid, gameBoard.bombPositions, countBoard,
           action.x, action.y
         );
+
+        if (isBombLocation(bombGrid, action.x, action.y)) {
+          newGameState = gameState.lost;
+        } else if (isGoalState(state.revealGrid, bombGrid)) {
+          newGameState = gameState.won;
+        } else {
+          newGameState = gameState.onGoing;
+        }
+
         return Object.assign({}, state, {
           revealGrid: computeRevealGrid(state.revealGrid, revealLocations),
+          gameState: newGameState,
         });
       case FLAG_CELL:
         if (state.revealGrid[action.y][action.x]) {
@@ -105,3 +128,11 @@ export const getBombCount = (state, x, y) =>
 
 export const getBombsLeft = (state) =>
   state.board.metadata.bombsLeft;
+
+export const hasWon = (state) => {
+  return state.board.metadata.gameState === gameState.won;
+};
+
+export const hasLost = (state) => {
+  return state.board.metadata.gameState === gameState.lost;
+};

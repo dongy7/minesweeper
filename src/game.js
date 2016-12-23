@@ -186,3 +186,7 @@ export const isGoalState = (revealGrid, bombGrid) => {
 
   return true;
 }
+
+export const isBombLocation = (grid, x, y) => {
+  return grid[y][x] === GRID.bomb;
+};
