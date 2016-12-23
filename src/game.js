@@ -174,3 +174,15 @@ export const toggleLocation = (grid, x, y) => {
 
   return clone;
 };
+
+export const isGoalState = (revealGrid, bombGrid) => {
+  for (let j = 0; j < revealGrid.length; j++) {
+    for (let i = 0; i < revealGrid[j].length; i++) {
+      if (revealGrid[j][i] === false && bombGrid[j][i] !== GRID.bomb) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
