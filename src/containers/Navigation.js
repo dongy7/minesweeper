@@ -1,6 +1,11 @@
 import { connect } from 'react-redux';
 import Navbar from '../components/Navbar';
 import { reset } from '../actions';
+import { getBombsLeft } from '../reducers/board';
+
+const mapStateToProps = (state) => ({
+  bombsLeft: getBombsLeft(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onClick: () => {
@@ -9,7 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Navigation = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Navbar);
 

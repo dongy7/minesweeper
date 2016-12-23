@@ -39,8 +39,10 @@ const createBoard = (width, height, bombCount) => {
   const metadata = (state = {
     revealGrid,
     flagGrid,
+    bombsLeft: bombCount,
   }, action) => {
     let revealLocations;
+    let count;
     switch (action.type) {
       case CLICK_CELL:
         revealLocations = findLocationsToReveal(
@@ -55,8 +57,13 @@ const createBoard = (width, height, bombCount) => {
           break;
         }
 
+        count = (state.flagGrid[action.y][action.x]) ? (
+          state.bombsLeft + 1) : (state.bombsLeft - 1);
+        console.log(count);
+
         return Object.assign({}, state, {
           flagGrid: toggleLocation(state.flagGrid, action.x, action.y),
+          bombsLeft: count,
         });
       default:
         return state;
@@ -95,3 +102,6 @@ export const shouldFlag = (state, x, y) =>
 
 export const getBombCount = (state, x, y) =>
   state.board.bombCountBoard[y][x];
+
+export const getBombsLeft = (state) =>
+  state.board.metadata.bombsLeft;
