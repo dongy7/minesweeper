@@ -36,12 +36,12 @@ export const MehIcon = () => {
 
 export const DefeatIcon = () => {
   return (
-    <FontIcon className="fa-frown-o" />
+    <i className="fa fa-frown-o fa-4x"/>
   );
 }
 
 export const VictoryIcon = () => {
   return (
-    <FontIcon className="fa-smile-o" />
+    <i className="fa fa-smile-o fa-4x"/>
   );
 };

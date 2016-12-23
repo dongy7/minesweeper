@@ -55,6 +55,7 @@ const createBoard = (width, height, bombCount) => {
     let revealLocations;
     let count;
     let newGameState;
+    let newRevealGrid;
 
     switch (action.type) {
       case CLICK_CELL:
@@ -63,16 +64,20 @@ const createBoard = (width, height, bombCount) => {
           action.x, action.y
         );
 
-        if (isBombLocation(bombGrid, action.x, action.y)) {
+        newRevealGrid = computeRevealGrid(state.revealGrid, revealLocations);
+
+        if (isBombLocation(
+          bombGrid, action.x, action.y
+        ) || state.gameState === gameState.lost) {
           newGameState = gameState.lost;
-        } else if (isGoalState(state.revealGrid, bombGrid)) {
+        } else if (isGoalState(newRevealGrid, bombGrid)) {
           newGameState = gameState.won;
         } else {
           newGameState = gameState.onGoing;
         }
 
         return Object.assign({}, state, {
-          revealGrid: computeRevealGrid(state.revealGrid, revealLocations),
+          revealGrid: newRevealGrid,
           gameState: newGameState,
         });
       case FLAG_CELL:
@@ -82,7 +87,6 @@ const createBoard = (width, height, bombCount) => {
 
         count = (state.flagGrid[action.y][action.x]) ? (
           state.bombsLeft + 1) : (state.bombsLeft - 1);
-        console.log(count);
 
         return Object.assign({}, state, {
           flagGrid: toggleLocation(state.flagGrid, action.x, action.y),
