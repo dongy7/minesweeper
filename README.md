@@ -1,4 +1,4 @@
-# Minesweeper
+# [Minesweeper](https://dongy7.github.io/minesweeper/)
 
 A Minesweeper clone written with Javascript. The project was bootstrapped with [Create-React-App](https://github.com/facebookincubator/create-react-app).
 
