@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import Navbar from '../components/Navbar';
 import { reset } from '../actions';
-import { getBombsLeft } from '../reducers/board';
+import { getBombsLeft, hasWon, hasLost } from '../reducers/board';
 
 const mapStateToProps = (state) => ({
   bombsLeft: getBombsLeft(state),
+  hasWon: hasWon(state),
+  hasLost: hasLost(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

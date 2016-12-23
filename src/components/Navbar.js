@@ -4,8 +4,9 @@ import IconButton from 'material-ui/IconButton';
 import Badge from 'material-ui/Badge';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import AutoRenew from 'material-ui/svg-icons/action/autorenew';
+import { DefeatIcon, VictoryIcon } from './Icon';
 
-const Navbar = ({ onClick, bombsLeft }) => {
+const Navbar = ({ onClick, bombsLeft, hasWon, hasLost }) => {
   const badge = (
     <Badge
       badgeContent={bombsLeft}
@@ -26,7 +27,9 @@ const Navbar = ({ onClick, bombsLeft }) => {
 
   return (
     <AppBar title="Minesweeper"
-      iconElementRight={badge}
+      iconElementRight={
+        hasWon ? (<VictoryIcon />) : (hasLost ? (<DefeatIcon />) : badge)
+      }
       iconElementLeft={resetIcon}
     />
   );
@@ -35,6 +38,8 @@ const Navbar = ({ onClick, bombsLeft }) => {
 Navbar.propTypes = {
   onClick: PropTypes.func.isRequired,
   bombsLeft: PropTypes.number.isRequired,
+  hasWon: PropTypes.bool.isRequired,
+  hasLost: PropTypes.bool.isRequired,
 };
 
 export default Navbar;
