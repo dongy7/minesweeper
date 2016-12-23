@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import FontIcon from 'material-ui/FontIcon';
 
 export const BombIcon = () => {
   return (
@@ -24,5 +25,23 @@ NumberIcon.propTypes = {
 export const FlagIcon = () => {
   return (
     <i className="fa fa-flag fa-lg"/>
+  );
+};
+
+export const MehIcon = () => {
+  return (
+    <FontIcon className="fa-meh-o" />
+  );
+};
+
+export const DefeatIcon = () => {
+  return (
+    <FontIcon className="fa-frown-o" />
+  );
+}
+
+export const VictoryIcon = () => {
+  return (
+    <FontIcon className="fa-smile-o" />
   );
 };
