@@ -12,7 +12,6 @@ const UnRevealedCell = ({ onLeftClick, onRightClick }) => {
   });
 
   const handleClick = (e) => {
-    console.log(e.nativeEvent.which);
     switch (e.nativeEvent.which) {
       case 1:
         onLeftClick();
