@@ -2,9 +2,8 @@ import React, { PropTypes } from 'react';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import Badge from 'material-ui/Badge';
-import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import AutoRenew from 'material-ui/svg-icons/action/autorenew';
-import { DefeatIcon, VictoryIcon } from './Icon';
+import { DefeatIcon, VictoryIcon, LargeBombIcon } from './Icon';
 
 const Navbar = ({ onClick, bombsLeft, hasWon, hasLost }) => {
   const badge = (
@@ -12,7 +11,7 @@ const Navbar = ({ onClick, bombsLeft, hasWon, hasLost }) => {
       badgeContent={bombsLeft}
       secondary
     >
-      <NotificationsIcon />
+      <LargeBombIcon />
     </Badge>
   );
 

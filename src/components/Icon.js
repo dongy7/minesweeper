@@ -45,3 +45,9 @@ export const VictoryIcon = () => {
     <i className="fa fa-smile-o fa-4x"/>
   );
 };
+
+export const LargeBombIcon = () => {
+  return (
+    <i className="fa fa-bomb fa-2x"/>
+  );
+};
