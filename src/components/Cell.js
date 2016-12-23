@@ -43,7 +43,7 @@ UnRevealedCell.propTypes = {
 
 const EmptyCell = () => {
   const emptyStyle = Object.assign({}, cellStyle, {
-    background: '#7da3c9',
+    background: '#424242',
   });
 
   return (
