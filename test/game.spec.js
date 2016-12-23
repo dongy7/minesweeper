@@ -161,7 +161,7 @@ test('toggling a grid location works', () => {
   expect(flagGrid[0][0]).toBe(false);
 });
 
-test('Goal detection works', () => {
+test('goal detection works', () => {
   const grid = [
   //  0   1    2
     [-1,  0,  -1],  // 0
@@ -185,7 +185,7 @@ test('Goal detection works', () => {
   expect(isGoalState(revealGrid, grid)).toBe(true);
 });
 
-test('Bomb detection works', () => {
+test('bomb detection works', () => {
   const grid = [
   //  0   1    2
     [-1,  0,  -1],  // 0
