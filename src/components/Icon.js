@@ -1,5 +1,14 @@
 import React, { PropTypes } from 'react';
 import FontIcon from 'material-ui/FontIcon';
+import Filter1 from 'material-ui/svg-icons/image/filter-1';
+import Filter2 from 'material-ui/svg-icons/image/filter-2';
+import Filter3 from 'material-ui/svg-icons/image/filter-3';
+import Filter4 from 'material-ui/svg-icons/image/filter-4';
+import Filter5 from 'material-ui/svg-icons/image/filter-5';
+import Filter6 from 'material-ui/svg-icons/image/filter-6';
+import Filter7 from 'material-ui/svg-icons/image/filter-7';
+import Filter8 from 'material-ui/svg-icons/image/filter-8';
+import { blue700, green500, red400, indigo900, purple800 } from 'material-ui/styles/colors';
 
 export const BombIcon = () => {
   return (
@@ -8,14 +17,37 @@ export const BombIcon = () => {
 };
 
 export const NumberIcon = ({ number }) => {
-  return (
-    <span className="fa-stack">
-      <i className="fa fa-circle fa-stack-2x"></i>
-      <i className="fa fa-inverse fa-stack-1x">
-        {number}
-      </i>
-    </span>
-  );
+  let icon;
+  switch (number) {
+    case 1:
+      icon = (<Filter1 color={blue700} />);
+      break;
+    case 2:
+      icon = (<Filter2 color={green500} />);
+      break;
+    case 3:
+      icon = (<Filter3 color={red400} />);
+      break;
+    case 4:
+      icon = (<Filter4 color={indigo900} />);
+      break;
+    case 5:
+      icon = (<Filter5 color={purple800} />);
+      break;
+    case 6:
+      icon = (<Filter6 color={purple800} />);
+      break;
+    case 7:
+      icon = (<Filter7 color={purple800} />);
+      break;
+    case 8:
+      icon = (<Filter8 color={purple800} />);
+      break;
+    default:
+      throw new Error(`Uh oh, something went wrong`);
+  }
+
+  return icon;
 };
 
 NumberIcon.propTypes = {
